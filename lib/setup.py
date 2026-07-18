@@ -25,7 +25,7 @@ def get_extensions():
     sources = main_file + source_cpu
     extension = CppExtension
 
-    extra_compile_args = {"cxx": []}
+    extra_compile_args = {"cxx": ["/Zc:preprocessor"]}
     define_macros = []
 
     if torch.cuda.is_available() and CUDA_HOME is not None:
@@ -37,6 +37,7 @@ def get_extensions():
             "-D__CUDA_NO_HALF_OPERATORS__",
             "-D__CUDA_NO_HALF_CONVERSIONS__",
             "-D__CUDA_NO_HALF2_OPERATORS__",
+            "-Xcompiler=/Zc:preprocessor"
         ]
 
     sources = [os.path.join(extensions_dir, s) for s in sources]
